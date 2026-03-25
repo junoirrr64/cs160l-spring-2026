@@ -16,16 +16,18 @@ public class BubbleSort implements Sorter {
 
     @Override
     public <T> void sort(T[] c, Comparator<? super T> comparisonStrategy) {
-        for (int i = 0; i < c.length; i++) {
-            for (int j = 0; j < c.length; j++) {
-                // A key point is to understand how this comparison works using comparators
-                // You can accept custom comparators using this
-                // comparing c[i], c[j] < 0 means c[i] > c[j] and the values must be swapped
-                if (comparisonStrategy.compare(c[i], c[j]) < 0) {
-                    swap(c, i, j);
+
+        for (int i = c.length - 1; i > 0; i--) {
+            // Inner loop: swap the largest element in the unsorted range [0, i] to the rightmost end of that range
+            for (int j = 0; j < i; j++) {
+                if (comparisonStrategy.compare(c[j+1], c[j]) < 0) {
+                    // Swap nums[j] and nums[j + 1]
+                    swap(c, j, j+1);
+
                 }
             }
         }
+
     }
 
     private <T> void swap(T[] arr, int i, int j) {
